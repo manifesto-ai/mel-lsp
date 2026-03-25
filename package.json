@@ -1,0 +1,36 @@
+{
+  "name": "@manifesto-ai/mel-lsp",
+  "version": "0.1.0",
+  "description": "MEL Language Server Protocol implementation",
+  "type": "module",
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "bin": {
+    "mel-lsp": "./bin/mel-lsp.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@manifesto-ai/compiler": "^1.7.0",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.0.0"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "MIT"
+}
