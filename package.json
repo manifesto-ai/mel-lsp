@@ -1,6 +1,6 @@
 {
   "name": "@manifesto-ai/mel-lsp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MEL Language Server Protocol implementation",
   "type": "module",
   "main": "./dist/server.js",

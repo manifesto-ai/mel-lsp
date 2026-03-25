@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/manifesto-ai/mel-lsp/compare/v1.0.0...v1.0.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* **vscode-mel:** add node types for compile ([fca5313](https://github.com/manifesto-ai/mel-lsp/commit/fca531397fe09488ae5c85df4d1821fefd8cd026))
+
 ## 1.0.0 (2026-03-25)
 
 
