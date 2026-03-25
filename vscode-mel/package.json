@@ -4,6 +4,11 @@
   "description": "Syntax highlighting and language server support for MEL (Manifesto Expression Language)",
   "version": "0.1.0",
   "publisher": "manifesto-ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manifesto-ai/mel-lsp.git",
+    "directory": "vscode-mel"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"

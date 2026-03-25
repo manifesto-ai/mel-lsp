@@ -32,6 +32,14 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manifesto-ai/mel-lsp.git"
+  },
+  "homepage": "https://github.com/manifesto-ai/mel-lsp#readme",
+  "bugs": {
+    "url": "https://github.com/manifesto-ai/mel-lsp/issues"
+  },
   "license": "MIT",
   "packageManager": "pnpm@10.30.3"
 }
