@@ -1,0 +1,44 @@
+{
+  "name": "vscode-mel",
+  "displayName": "MEL Language Support",
+  "description": "Syntax highlighting and language server support for MEL (Manifesto Expression Language)",
+  "version": "0.1.0",
+  "publisher": "manifesto-ai",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": [
+    "onLanguage:mel"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "mel",
+        "aliases": ["MEL", "mel"],
+        "extensions": [".mel"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mel",
+        "scopeName": "source.mel",
+        "path": "./syntaxes/mel.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.9.0"
+  }
+}

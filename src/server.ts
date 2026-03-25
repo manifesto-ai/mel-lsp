@@ -23,6 +23,7 @@ import { handleReferences } from "./providers/references.js";
 import { handleRename, handlePrepareRename } from "./providers/rename.js";
 import { handleSemanticTokens } from "./providers/semantic-tokens.js";
 import { handleCodeAction } from "./providers/code-actions.js";
+import { setupIntrospection } from "./providers/introspection.js";
 
 const connection = createConnection(ProposedFeatures.all);
 const documents = new MelDocumentManager();
@@ -46,6 +47,9 @@ connection.onRenameRequest(handleRename(documents));
 connection.onPrepareRename(handlePrepareRename(documents));
 connection.languages.semanticTokens.on(handleSemanticTokens(documents));
 connection.onCodeAction(handleCodeAction(documents));
+
+// Phase 3: AI-Native
+setupIntrospection(connection, bridge);
 
 // Start
 documents.listen(connection);
