@@ -1,0 +1,6 @@
+src/**
+.vscode/**
+examples/**
+scripts/**
+tsconfig.json
+package-lock.json

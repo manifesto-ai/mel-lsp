@@ -3,3 +3,5 @@ dist/
 *.tsbuildinfo
 vscode-mel/out/
 vscode-mel/node_modules/
+vscode-mel/server/
+vscode-mel/*.vsix

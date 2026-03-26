@@ -4,7 +4,13 @@ on:
   push:
     branches: [main]
     paths:
+      - "src/**"
+      - "bin/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "tsup.config.ts"
       - "vscode-mel/**"
+      - ".github/workflows/vscode-ext.yml"
   workflow_dispatch:
 
 env:
@@ -18,12 +24,19 @@ jobs:
         working-directory: vscode-mel
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        working-directory: .
       - run: npm install
       - run: npm run compile
-      - run: npx @vscode/vsce package --no-dependencies
+      - run: npm run prepare:server
+      - run: npx @vscode/vsce package
+      - run: unzip -l ./*.vsix | grep "extension/server/server.js"
+      - run: unzip -l ./*.vsix | grep "node_modules/vscode-languageclient"
       - uses: actions/upload-artifact@v4
         with:
           name: vscode-mel.vsix
@@ -38,11 +51,16 @@ jobs:
         working-directory: vscode-mel
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        working-directory: .
       - run: npm install
       - run: npm run compile
-      - run: npx @vscode/vsce publish --no-dependencies
+      - run: npm run prepare:server
+      - run: npx @vscode/vsce publish
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}

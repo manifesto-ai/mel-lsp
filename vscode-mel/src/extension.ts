@@ -1,5 +1,11 @@
+import * as fs from "fs";
 import * as path from "path";
-import { workspace, type ExtensionContext } from "vscode";
+import {
+  window,
+  workspace,
+  type ExtensionContext,
+  type OutputChannel,
+} from "vscode";
 import {
   LanguageClient,
   type LanguageClientOptions,
@@ -8,15 +14,30 @@ import {
 } from "vscode-languageclient/node";
 
 let client: LanguageClient | undefined;
+let outputChannel: OutputChannel | undefined;
 
-export function activate(context: ExtensionContext) {
-  // Resolve the mel-lsp server binary.
-  // When installed as a dependency: node_modules/@manifesto-ai/mel-lsp/bin/mel-lsp.js
-  // When developing locally: ../bin/mel-lsp.js
-  const serverModule =
-    context.asAbsolutePath(
-      path.join("node_modules", "@manifesto-ai", "mel-lsp", "bin", "mel-lsp.js")
-    ) || context.asAbsolutePath(path.join("..", "bin", "mel-lsp.js"));
+export async function activate(context: ExtensionContext) {
+  outputChannel = window.createOutputChannel("Manifesto MEL");
+
+  const packagedServerModule = context.asAbsolutePath(path.join("server", "server.js"));
+  const localServerModule = context.asAbsolutePath(path.join("..", "bin", "mel-lsp.js"));
+
+  const serverModule = [packagedServerModule, localServerModule].find((candidate) =>
+    fs.existsSync(candidate)
+  );
+
+  if (!serverModule) {
+    const message =
+      "Manifesto MEL could not start the MEL language server because no packaged server module was found.";
+    outputChannel.appendLine(message);
+    outputChannel.appendLine(`Expected packaged server at: ${packagedServerModule}`);
+    outputChannel.appendLine(`Expected local dev server at: ${localServerModule}`);
+    outputChannel.show(true);
+    void window.showErrorMessage(message);
+    return;
+  }
+
+  outputChannel.appendLine(`Starting MEL language server from: ${serverModule}`);
 
   const serverOptions: ServerOptions = {
     run: { module: serverModule, transport: TransportKind.stdio },
@@ -25,6 +46,7 @@ export function activate(context: ExtensionContext) {
 
   const clientOptions: LanguageClientOptions = {
     documentSelector: [{ scheme: "file", language: "mel" }],
+    outputChannel,
     synchronize: {
       fileEvents: workspace.createFileSystemWatcher("**/*.mel"),
     },
@@ -37,7 +59,18 @@ export function activate(context: ExtensionContext) {
     clientOptions
   );
 
-  client.start();
+  try {
+    await client.start();
+  } catch (error) {
+    const detail = error instanceof Error ? error.stack ?? error.message : String(error);
+    outputChannel.appendLine("Failed to start MEL language server.");
+    outputChannel.appendLine(detail);
+    outputChannel.show(true);
+    void window.showErrorMessage(
+      "Manifesto MEL failed to start the language server. See the 'Manifesto MEL' output for details."
+    );
+    throw error;
+  }
 }
 
 export function deactivate(): Thenable<void> | undefined {

@@ -2,7 +2,7 @@
   "name": "vscode-mel",
   "displayName": "Manifesto MEL",
   "description": "Syntax highlighting and language server support for MEL (Manifesto Expression Language)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "manifesto-ai",
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     ]
   },
   "scripts": {
+    "prepare:server": "node ./scripts/prepare-server.mjs",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
   },
