@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/manifesto-ai/mel-lsp/compare/v1.0.1...v1.0.2) (2026-03-26)
+
+
+### Bug Fixes
+
+* **ci:** sync pnpm lockfile for vscode-mel ([74941a8](https://github.com/manifesto-ai/mel-lsp/commit/74941a8846c80507d6c3a7b91e9fca55c8625ff3))
+
 ## [1.0.1](https://github.com/manifesto-ai/mel-lsp/compare/v1.0.0...v1.0.1) (2026-03-25)
 
 
