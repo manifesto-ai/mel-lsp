@@ -5,3 +5,4 @@ vscode-mel/out/
 vscode-mel/node_modules/
 vscode-mel/server/
 vscode-mel/*.vsix
+vscode-mel/.vsce-stage/

@@ -34,13 +34,19 @@ jobs:
       - run: npm install
       - run: npm run compile
       - run: npm run prepare:server
+      - run: npm run stage:vsix
+      - run: npm install --omit=dev
+        working-directory: vscode-mel/.vsce-stage
       - run: npx @vscode/vsce package
+        working-directory: vscode-mel/.vsce-stage
       - run: unzip -l ./*.vsix | grep "extension/server/server.js"
+        working-directory: vscode-mel/.vsce-stage
       - run: unzip -l ./*.vsix | grep "node_modules/vscode-languageclient"
+        working-directory: vscode-mel/.vsce-stage
       - uses: actions/upload-artifact@v4
         with:
           name: vscode-mel.vsix
-          path: vscode-mel/*.vsix
+          path: vscode-mel/.vsce-stage/*.vsix
 
   publish:
     needs: build
@@ -61,6 +67,10 @@ jobs:
       - run: npm install
       - run: npm run compile
       - run: npm run prepare:server
+      - run: npm run stage:vsix
+      - run: npm install --omit=dev
+        working-directory: vscode-mel/.vsce-stage
       - run: npx @vscode/vsce publish
+        working-directory: vscode-mel/.vsce-stage
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
