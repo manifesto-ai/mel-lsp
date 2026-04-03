@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/manifesto-ai/mel-lsp/compare/v1.0.2...v1.0.3) (2026-03-26)
+
+
+### Bug Fixes
+
+* **vscode-mel:** bundle server into published extension ([b59504a](https://github.com/manifesto-ai/mel-lsp/commit/b59504aeb1536785fc2c141cdfa9aa6f4c2be009))
+* **vscode-mel:** ship compiler 1.8.3 in extension bundle ([162473e](https://github.com/manifesto-ai/mel-lsp/commit/162473ea94202de6fea2a6ac2aeebac0ab44c89a))
+
 ## [1.0.2](https://github.com/manifesto-ai/mel-lsp/compare/v1.0.1...v1.0.2) (2026-03-26)
 
 
