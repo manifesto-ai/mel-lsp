@@ -24,6 +24,30 @@ domain Broken {
 }
 `;
 
+const HELLO_DOMAIN_MEL = `
+domain HelloDomain {
+    state {
+        hello: string = "Hello, World!"
+        counter: number = 0
+    }
+
+    computed doubled = mul(counter, 2)
+    computed canDecrement = gt(counter, 0)
+
+    action increment() {
+        onceIntent {
+            patch counter = add(counter, 1)
+        }
+    }
+
+    action decrement() available when canDecrement {
+        onceIntent {
+            patch counter = sub(counter, 1)
+        }
+    }
+}
+`;
+
 const SYNTAX_ERROR_MEL = `
 domain {
   state {
@@ -35,6 +59,32 @@ describe("CompilerBridge", () => {
     const diags = bridge.compile("file:///test.mel", VALID_MEL, 1);
     const errors = diags.filter((d) => d.severity === 1); // Error
     expect(errors).toHaveLength(0);
+  });
+
+  it("should compile sample HelloDomain MEL with no diagnostics", () => {
+    const bridge = new CompilerBridge();
+    const diags = bridge.compile("file:///hello.mel", HELLO_DOMAIN_MEL, 1);
+    const errors = diags.filter((d) => d.severity === 1);
+    const warnings = diags.filter((d) => d.severity === 2);
+
+    expect(errors).toHaveLength(0);
+    expect(warnings).toHaveLength(0);
+  });
+
+  it("should cache HelloDomain schema fields and computed/actions", () => {
+    const bridge = new CompilerBridge();
+    bridge.compile("file:///hello.mel", HELLO_DOMAIN_MEL, 1);
+
+    const schema = bridge.getSchema("file:///hello.mel");
+    expect(schema).not.toBeNull();
+    expect(schema!.state.fields).toHaveProperty("hello");
+    expect(schema!.state.fields).toHaveProperty("counter");
+    expect(Object.keys(schema!.computed.fields)).toEqual(
+      expect.arrayContaining(["doubled", "canDecrement"])
+    );
+    expect(Object.keys(schema!.actions)).toEqual(
+      expect.arrayContaining(["increment", "decrement"])
+    );
   });
 
   it("should compile valid MEL and cache schema", () => {
