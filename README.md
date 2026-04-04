@@ -1,42 +1,52 @@
 # @manifesto-ai/mel-lsp
 
-Language Server Protocol implementation for [MEL (Manifesto Expression Language)](https://github.com/manifesto-ai).
+Language Server Protocol implementation for MEL.
+
+Use it when you want editor support or authoring-time schema introspection for `.mel` files. It does not replace the runtime packages or project-bootstrap tools.
+
+## Quick Start
+
+```bash
+npm install -D @manifesto-ai/mel-lsp
+npx mel-lsp
+```
+
+The server communicates over stdio using the LSP protocol.
+
+## What You Get
+
+- diagnostics through `@manifesto-ai/compiler`
+- completion, hover, signature help, symbols, definitions, references, and rename
+- semantic tokens and code actions
+- AI-native schema introspection methods for tool-hosted assistants
 
 ## Features
 
-### Phase 1 — Basic IDE Support
-- **Diagnostics** — Real-time error and warning reporting via `@manifesto-ai/compiler`
-- **Completion** — Context-aware suggestions for 150+ builtin functions, domain symbols, keywords, and system identifiers (`$system`, `$meta`, `$input`, `$item`)
-- **Hover** — Documentation for builtins, keywords, and domain symbols
-- **Signature Help** — Parameter hints for function calls
-- **Document Symbols** — Outline of state, computed, action, and type declarations
+### Authoring Support
 
-### Phase 2 — Advanced Navigation
-- **Go to Definition** — Jump to symbol declarations
-- **Find References** — Locate all usages of a symbol
-- **Rename Symbol** — Safe rename across all occurrences
-- **Semantic Tokens** — AST-based syntax highlighting
-- **Code Actions** — Quick fixes with fuzzy typo suggestions
+- **Diagnostics**: real-time error and warning reporting
+- **Completion**: builtin functions, domain symbols, keywords, and system identifiers
+- **Hover**: documentation for builtins, keywords, and domain symbols
+- **Signature Help**: parameter hints for function calls
+- **Document Symbols**: outline of state, computed, action, and type declarations
+- **Go to Definition**: jump to symbol declarations
+- **Find References**: locate all usages of a symbol
+- **Rename Symbol**: safe rename across all occurrences
+- **Semantic Tokens**: AST-based syntax highlighting
+- **Code Actions**: quick fixes with fuzzy typo suggestions
 
-### Phase 3 — AI-Native Schema Introspection
-- `mel/schemaIntrospection` — Returns full compiled `DomainSchema` (state, computed, actions, types)
-- `mel/actionSignatures` — Lightweight action metadata for LLM agent integration
+### AI-Native Schema Introspection
 
-## Installation
-
-```bash
-npm install @manifesto-ai/mel-lsp
-```
+- `mel/schemaIntrospection`: returns the full compiled `DomainSchema`
+- `mel/actionSignatures`: returns lightweight action metadata for tool-hosted agents
 
 ## Usage
 
-### As a standalone server
+### As a Standalone Server
 
 ```bash
 npx mel-lsp
 ```
-
-The server communicates over **stdio** using the LSP protocol.
 
 ### VS Code Extension
 
@@ -46,28 +56,35 @@ The `vscode-mel` extension is included in the [`vscode-mel/`](./vscode-mel) dire
 2. Press `F5` to launch the Extension Development Host
 3. Open any `.mel` file to activate the language server
 
-**Extension features:**
-- Syntax highlighting via TextMate grammar
-- Full LSP integration (completions, hover, diagnostics, etc.)
-- File watching for `**/*.mel` files
+Extension features:
 
-### With other editors
+- syntax highlighting via TextMate grammar
+- full LSP integration
+- file watching for `**/*.mel` files
+
+### With Other Editors
 
 Any editor that supports LSP can use `mel-lsp`. Configure your editor to launch `mel-lsp` over stdio for files with the `.mel` extension.
+
+## When To Reach For Something Else
+
+- Use `@manifesto-ai/cli` when the missing piece is repo bootstrap or bundler integration.
+- Use `@manifesto-ai/skills` when the missing piece is AI coding tool guidance.
+- Use Studio packages when the missing piece is read-only inspection of snapshots, traces, lineage, or governance data.
 
 ## Development
 
 ```bash
-pnpm install          # Install dependencies
-pnpm build            # Build with tsup
-pnpm dev              # Build in watch mode
-pnpm test             # Run tests
-pnpm test:watch       # Run tests in watch mode
+pnpm install
+pnpm build
+pnpm dev
+pnpm test
+pnpm test:watch
 ```
 
 ## Architecture
 
-```
+```text
 src/
 ├── server.ts              # Main server entry point
 ├── capabilities.ts        # LSP capability declarations
@@ -75,10 +92,10 @@ src/
 ├── document-manager.ts    # Document tracking
 ├── ast-utils.ts           # AST analysis utilities (scope, symbols)
 ├── registry/
-│   ├── builtins.ts        # 150+ builtin function definitions
+│   ├── builtins.ts        # Builtin function definitions
 │   └── keywords.ts        # Keywords, system identifiers, snippets
 └── providers/
-    ├── diagnostics.ts     # Error/warning publishing
+    ├── diagnostics.ts     # Error and warning publishing
     ├── completion.ts      # Autocomplete
     ├── hover.ts           # Hover information
     ├── signature.ts       # Function parameter hints
