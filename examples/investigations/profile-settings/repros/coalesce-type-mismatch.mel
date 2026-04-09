@@ -1,0 +1,8 @@
+domain ProfileSettings {
+  state {
+    email: string = ""
+    newsletter: boolean = false
+  }
+
+  computed fallback = coalesce(email, newsletter)
+}

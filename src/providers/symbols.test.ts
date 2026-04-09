@@ -87,6 +87,35 @@ describe("document symbols provider", () => {
     expect(result).toHaveLength(0);
   });
 
+  it("should include flow declarations in outline", () => {
+    const mel = `domain Test {
+  state { x: number = 0 }
+
+  flow validate(value: number) {
+    when gt(value, 0) {
+      patch x = value
+    }
+  }
+
+  action submit(amount: number) {
+    include validate(amount)
+    onceIntent {
+      patch x = amount
+    }
+  }
+}`;
+    const doc = createDoc(mel);
+    const handler = handleDocumentSymbol(mockDocs(doc));
+
+    const result = handler({ textDocument: { uri: doc.uri } });
+    const domain = result[0];
+    const flowSymbol = domain.children?.find(
+      (c) => c.kind === SymbolKind.Function && c.name.startsWith("validate")
+    );
+    expect(flowSymbol).toBeDefined();
+    expect(flowSymbol?.name).toBe("validate(value)");
+  });
+
   it("should include action parameters in name", () => {
     const mel = `domain Test {
   state { x: number = 0 }

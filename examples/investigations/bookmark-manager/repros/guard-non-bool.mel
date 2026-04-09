@@ -1,0 +1,13 @@
+domain BookmarkManager {
+  state {
+    totalBookmarks: number = 0
+  }
+
+  action addBookmark() {
+    onceIntent {
+      when totalBookmarks {
+        patch totalBookmarks = add(totalBookmarks, 1)
+      }
+    }
+  }
+}

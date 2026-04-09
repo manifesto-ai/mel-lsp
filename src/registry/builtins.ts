@@ -998,6 +998,71 @@ const BUILTINS: BuiltinFunction[] = [
     maxArgs: 1,
   },
 
+  // ============ Entity Primitives ============
+  {
+    name: "findById",
+    category: "array",
+    signature: "(collection: Array<T>, id: string | number) => T | null",
+    parameters: [
+      { name: "collection", type: "Array<T>", description: "Array of objects with id field" },
+      { name: "id", type: "string | number", description: "ID to find" },
+    ],
+    returnType: "T | null",
+    description: "Find an element by its `id` field. Returns null if not found.",
+    example: "computed user = findById(users, selectedUserId)",
+    snippet: "findById(${1:collection}, ${2:id})",
+    minArgs: 2,
+    maxArgs: 2,
+  },
+  {
+    name: "existsById",
+    category: "array",
+    signature: "(collection: Array<T>, id: string | number) => boolean",
+    parameters: [
+      { name: "collection", type: "Array<T>", description: "Array of objects with id field" },
+      { name: "id", type: "string | number", description: "ID to check" },
+    ],
+    returnType: "boolean",
+    description: "Check if an element with the given `id` exists in the collection.",
+    example: "computed exists = existsById(users, userId)",
+    snippet: "existsById(${1:collection}, ${2:id})",
+    minArgs: 2,
+    maxArgs: 2,
+  },
+  {
+    name: "updateById",
+    category: "array",
+    signature: "(collection: Array<T>, id: string | number, updates: Partial<T>) => Array<T>",
+    parameters: [
+      { name: "collection", type: "Array<T>", description: "Array of objects with id field" },
+      { name: "id", type: "string | number", description: "ID of element to update" },
+      { name: "updates", type: "Partial<T>", description: "Fields to merge into the element" },
+    ],
+    returnType: "Array<T>",
+    description:
+      "Return a new array with the matching element updated. Computed-only.",
+    example: "computed updated = updateById(users, userId, { active: true })",
+    snippet: "updateById(${1:collection}, ${2:id}, ${3:updates})",
+    minArgs: 3,
+    maxArgs: 3,
+  },
+  {
+    name: "removeById",
+    category: "array",
+    signature: "(collection: Array<T>, id: string | number) => Array<T>",
+    parameters: [
+      { name: "collection", type: "Array<T>", description: "Array of objects with id field" },
+      { name: "id", type: "string | number", description: "ID of element to remove" },
+    ],
+    returnType: "Array<T>",
+    description:
+      "Return a new array without the element matching the given id. Computed-only.",
+    example: "computed remaining = removeById(users, userId)",
+    snippet: "removeById(${1:collection}, ${2:id})",
+    minArgs: 2,
+    maxArgs: 2,
+  },
+
   // ============ Aggregation ============
   {
     name: "sum",

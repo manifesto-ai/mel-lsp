@@ -1,0 +1,5 @@
+domain ProfileSettings {
+  state {
+    locale: string = null
+  }
+}

@@ -22,6 +22,26 @@ const SAMPLE_MEL = `domain Test {
   }
 }`;
 
+const FLOW_MEL = `domain FlowTest {
+  state {
+    count: number = 0
+    validated: boolean = false
+  }
+
+  flow validate(value: number) {
+    when gt(value, 0) {
+      patch validated = true
+    }
+  }
+
+  action submit(amount: number) {
+    include validate(amount)
+    onceIntent {
+      patch count = add(count, amount)
+    }
+  }
+}`;
+
 describe("ast-utils", () => {
   it("should analyze valid MEL", () => {
     const result = analyzeDocument(SAMPLE_MEL);
@@ -110,5 +130,56 @@ describe("ast-utils", () => {
     const refs = all.filter((o) => o.kind === "reference");
     expect(defs.length).toBe(1);
     expect(refs.length).toBeGreaterThan(0);
+  });
+
+  // ============ Flow / Include ============
+
+  it("should collect flow definitions", () => {
+    const result = analyzeDocument(FLOW_MEL)!;
+    const def = result.definitions.find(
+      (d) => d.name === "validate" && d.symbolKind === "flow"
+    );
+    expect(def).toBeDefined();
+    expect(def!.kind).toBe("definition");
+  });
+
+  it("should collect flow param definitions", () => {
+    const result = analyzeDocument(FLOW_MEL)!;
+    const def = result.definitions.find(
+      (d) => d.name === "value" && d.symbolKind === "param"
+    );
+    expect(def).toBeDefined();
+  });
+
+  it("should collect include as flow reference", () => {
+    const result = analyzeDocument(FLOW_MEL)!;
+    const ref = result.references.find(
+      (r) => r.name === "validate" && r.symbolKind === "flow"
+    );
+    expect(ref).toBeDefined();
+    expect(ref!.kind).toBe("reference");
+  });
+
+  it("should collect include argument references", () => {
+    const result = analyzeDocument(FLOW_MEL)!;
+    // include validate(amount) — amount is a reference
+    const ref = result.references.find((r) => r.name === "amount");
+    expect(ref).toBeDefined();
+  });
+
+  it("findDefinition should find flow by name", () => {
+    const result = analyzeDocument(FLOW_MEL)!;
+    const def = findDefinition(result, "validate", "flow");
+    expect(def).not.toBeNull();
+    expect(def!.symbolKind).toBe("flow");
+  });
+
+  it("findAllOccurrences should return flow definition + include references", () => {
+    const result = analyzeDocument(FLOW_MEL)!;
+    const all = findAllOccurrences(result, "validate", "flow");
+    const defs = all.filter((o) => o.kind === "definition");
+    const refs = all.filter((o) => o.kind === "reference");
+    expect(defs.length).toBe(1);
+    expect(refs.length).toBe(1);
   });
 });

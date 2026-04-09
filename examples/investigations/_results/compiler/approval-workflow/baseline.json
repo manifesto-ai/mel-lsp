@@ -1,0 +1,14 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "approval-workflow/baseline.mel",
+  "input": {
+    "byteLength": 365,
+    "lineCount": 19
+  },
+  "result": {
+    "hasSchema": true,
+    "errors": [],
+    "warnings": []
+  }
+}

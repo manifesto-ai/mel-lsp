@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "approval-workflow/repros/cross-type-comparison.mel",
+  "input": {
+    "byteLength": 144,
+    "lineCount": 9
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 7
+          },
+          "end": {
+            "line": 7
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "eq/neq operands must be compatible primitive types, got string and 1",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -20,6 +20,7 @@ import {
   type ExprNode,
   type GuardedStmtNode,
   type InnerStmtNode,
+  type FlowDeclNode,
   type PathNode,
   type SourceLocation,
   type ScopeAnalysisResult,
@@ -34,7 +35,7 @@ export interface SymbolReference {
   name: string;
   location: SourceLocation;
   kind: "definition" | "reference";
-  symbolKind: "state" | "computed" | "action" | "param" | "type";
+  symbolKind: "state" | "computed" | "action" | "param" | "type" | "flow";
 }
 
 /** Result of parsing and analyzing a document */
@@ -168,6 +169,9 @@ function collectSymbols(
       case "action":
         collectAction(member as ActionNode, definitions, references, domain);
         break;
+      case "flow":
+        collectFlow(member as FlowDeclNode, definitions, references, domain);
+        break;
     }
   }
 }
@@ -244,7 +248,39 @@ function collectAction(
     collectExprReferences(node.available, references, domain);
   }
 
+  // Dispatchable condition
+  if (node.dispatchable) {
+    collectExprReferences(node.dispatchable, references, domain);
+  }
+
   // Body statements
+  for (const stmt of node.body) {
+    collectStmtReferences(stmt, references, domain);
+  }
+}
+
+function collectFlow(
+  node: FlowDeclNode,
+  definitions: SymbolReference[],
+  references: SymbolReference[],
+  domain: DomainNode
+): void {
+  definitions.push({
+    name: node.name,
+    location: node.location,
+    kind: "definition",
+    symbolKind: "flow",
+  });
+
+  for (const param of node.params ?? []) {
+    definitions.push({
+      name: param.name,
+      location: param.location,
+      kind: "definition",
+      symbolKind: "param",
+    });
+  }
+
   for (const stmt of node.body) {
     collectStmtReferences(stmt, references, domain);
   }
@@ -292,6 +328,17 @@ function collectStmtReferences(
         } else {
           collectExprReferences(arg.value as ExprNode, references, domain);
         }
+      }
+      break;
+    case "include":
+      references.push({
+        name: stmt.flowName,
+        location: stmt.location,
+        kind: "reference",
+        symbolKind: "flow",
+      });
+      for (const arg of stmt.args) {
+        collectExprReferences(arg, references, domain);
       }
       break;
     case "fail":
@@ -397,6 +444,8 @@ function resolveSymbolKind(
       return "computed";
     } else if (member.kind === "action" && (member as ActionNode).name === name) {
       return "action";
+    } else if (member.kind === "flow" && (member as FlowDeclNode).name === name) {
+      return "flow";
     }
   }
   // Could be a param — default to state since we can't determine from domain alone

@@ -1,0 +1,11 @@
+domain ApprovalWorkflow {
+  state {
+    approved: boolean = false
+  }
+
+  action approve(actorId: number) {
+    onceIntent {
+      patch approved = actorId
+    }
+  }
+}

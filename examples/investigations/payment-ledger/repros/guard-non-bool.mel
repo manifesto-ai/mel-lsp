@@ -1,0 +1,13 @@
+domain PaymentLedger {
+  state {
+    balance: number = 0
+  }
+
+  action postEntry(amount: number) {
+    onceIntent {
+      when amount {
+        patch balance = add(balance, amount)
+      }
+    }
+  }
+}

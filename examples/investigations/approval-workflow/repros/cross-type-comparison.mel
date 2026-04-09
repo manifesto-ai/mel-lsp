@@ -1,0 +1,8 @@
+domain ApprovalWorkflow {
+  state {
+    requestId: string = "REQ-1"
+    approved: boolean = false
+  }
+
+  computed isTarget = eq(requestId, 1)
+}

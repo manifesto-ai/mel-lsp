@@ -1,0 +1,9 @@
+domain PaymentLedger {
+  state {
+    balance: number = 0
+    entries: Array<number> = []
+  }
+
+  computed entryTotal = sum(entries)
+  computed formattedBalance = concat("Balance: ", toString(balance))
+}

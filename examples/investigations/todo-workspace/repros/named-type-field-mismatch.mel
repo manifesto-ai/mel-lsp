@@ -1,0 +1,13 @@
+domain TodoWorkspace {
+  type Todo = {
+    id: string,
+    done: boolean
+  }
+
+  state {
+    current: Todo = {
+      id: 1,
+      done: false
+    }
+  }
+}

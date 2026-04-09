@@ -1,0 +1,10 @@
+domain ProfileSettings {
+  state {
+    email: string = ""
+    locale: string = "en"
+    newsletter: boolean = false
+  }
+
+  computed hasEmail = neq(trim(email), "")
+  computed displayLocale = coalesce(locale, "en")
+}

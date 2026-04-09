@@ -1,0 +1,8 @@
+domain BookmarkManager {
+  state {
+    totalBookmarks: number = 0
+    lastTitle: string = ""
+    isFavorite: boolean = false
+    isGood: boolean = "hello"
+  }
+}

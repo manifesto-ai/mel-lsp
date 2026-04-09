@@ -1,0 +1,11 @@
+domain BookmarkManager {
+  state {
+    isFavorite: boolean = false
+  }
+
+  action toggleFavorite() {
+    onceIntent {
+      patch isFavorite = "yes"
+    }
+  }
+}

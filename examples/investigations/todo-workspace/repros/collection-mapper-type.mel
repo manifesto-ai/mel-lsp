@@ -1,0 +1,12 @@
+domain TodoWorkspace {
+  type Todo = {
+    id: string,
+    done: boolean
+  }
+
+  state {
+    todos: Array<Todo> = []
+  }
+
+  computed ids = map(todos, add($item.id, 1))
+}

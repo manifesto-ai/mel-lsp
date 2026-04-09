@@ -1,0 +1,12 @@
+domain InventoryCatalog {
+  type Item = {
+    sku: string,
+    stock: number
+  }
+
+  state {
+    inventory: Array<Item> = []
+  }
+
+  computed lowStock = filter(inventory, $item.sku)
+}

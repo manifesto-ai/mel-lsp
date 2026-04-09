@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "todo-workspace/repros/collection-predicate-type.mel",
+  "input": {
+    "byteLength": 170,
+    "lineCount": 13
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 11
+          },
+          "end": {
+            "line": 11
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "Function 'filter' requires a boolean-valued callback, got string",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}

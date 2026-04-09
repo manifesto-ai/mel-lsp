@@ -1,0 +1,7 @@
+domain ProfileSettings {
+  state {
+    email: string = ""
+  }
+
+  computed display = concat("Email: ", missingEmail)
+}

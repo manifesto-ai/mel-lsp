@@ -1,0 +1,18 @@
+domain ApprovalWorkflow {
+  state {
+    requestId: string = ""
+    approved: boolean = false
+    approvers: Array<string> = []
+  }
+
+  computed hasApprovers = gt(len(approvers), 0)
+  computed canApprove = and(not(approved), hasApprovers)
+
+  action approve(actorId: string) {
+    onceIntent {
+      when canApprove {
+        patch approved = true
+      }
+    }
+  }
+}

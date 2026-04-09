@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "payment-ledger/repros/guard-non-bool.mel",
+  "input": {
+    "byteLength": 201,
+    "lineCount": 14
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 8
+          },
+          "end": {
+            "line": 8
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "Condition in when must evaluate to boolean, got number",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,13 @@
+domain TodoWorkspace {
+  type Todo = {
+    id: string,
+    done: boolean
+  }
+
+  state {
+    todos: Array<Todo> = []
+  }
+
+  computed openTodos = filter(todos, not($item.done))
+  computed todoCount = len(todos)
+}

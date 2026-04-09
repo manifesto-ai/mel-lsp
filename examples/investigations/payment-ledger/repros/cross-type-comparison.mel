@@ -1,0 +1,7 @@
+domain PaymentLedger {
+  state {
+    balance: number = 0
+  }
+
+  computed isZero = eq(balance, "0")
+}

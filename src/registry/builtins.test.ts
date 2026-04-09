@@ -118,6 +118,29 @@ describe("builtins registry", () => {
     expect(getBuiltinFunction("cond")!.maxArgs).toBe(3);
   });
 
+  it("covers all entity primitive functions", () => {
+    const entityPrimitives = ["findById", "existsById", "updateById", "removeById"];
+    for (const name of entityPrimitives) {
+      const fn = getBuiltinFunction(name);
+      expect(fn).toBeDefined();
+      expect(fn!.category).toBe("array");
+    }
+  });
+
+  it("entity primitive arity constraints are correct", () => {
+    expect(getBuiltinFunction("findById")!.minArgs).toBe(2);
+    expect(getBuiltinFunction("findById")!.maxArgs).toBe(2);
+
+    expect(getBuiltinFunction("existsById")!.minArgs).toBe(2);
+    expect(getBuiltinFunction("existsById")!.maxArgs).toBe(2);
+
+    expect(getBuiltinFunction("updateById")!.minArgs).toBe(3);
+    expect(getBuiltinFunction("updateById")!.maxArgs).toBe(3);
+
+    expect(getBuiltinFunction("removeById")!.minArgs).toBe(2);
+    expect(getBuiltinFunction("removeById")!.maxArgs).toBe(2);
+  });
+
   it("unknown function returns undefined", () => {
     expect(getBuiltinFunction("nonexistent")).toBeUndefined();
   });

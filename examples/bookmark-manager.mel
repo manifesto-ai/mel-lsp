@@ -1,0 +1,20 @@
+domain BookmarkManager {
+    state {
+      totalBookmarks: number = 0
+      lastTitle: string = ""
+      isFavorite: boolean = false
+      isGood: boolean = 0
+    }
+
+    computed hasBookmarks = gt(totalBookmarks, 0)
+    computed displayCount = concat("Total: ", toString(totalBookmarks))
+
+    action addBookmark(title: string) {
+      onceIntent {
+        when neq(trim(title), "") {
+          patch totalBookmarks = add(totalBookmarks, 1)
+          patch lastTitle = trim(title)
+        }
+      }
+    }
+  }

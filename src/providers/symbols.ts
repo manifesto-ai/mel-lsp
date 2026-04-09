@@ -17,6 +17,7 @@ import type {
   StateNode,
   ComputedNode,
   ActionNode,
+  FlowDeclNode,
   TypeDeclNode,
   SourceLocation,
 } from "@manifesto-ai/compiler";
@@ -67,6 +68,9 @@ function buildSymbols(program: ProgramNode): DocumentSymbol[] {
         break;
       case "action":
         children.push(createActionSymbol(member as ActionNode));
+        break;
+      case "flow":
+        children.push(createFlowSymbol(member as FlowDeclNode));
         break;
     }
   }
@@ -119,6 +123,16 @@ function createComputedSymbol(node: ComputedNode): DocumentSymbol {
 }
 
 function createActionSymbol(node: ActionNode): DocumentSymbol {
+  const params = node.params?.map((p) => p.name).join(", ") ?? "";
+  return {
+    name: `${node.name}(${params})`,
+    kind: SymbolKind.Function,
+    range: toRange(node.location),
+    selectionRange: toRange(node.location),
+  };
+}
+
+function createFlowSymbol(node: FlowDeclNode): DocumentSymbol {
   const params = node.params?.map((p) => p.name).join(", ") ?? "";
   return {
     name: `${node.name}(${params})`,

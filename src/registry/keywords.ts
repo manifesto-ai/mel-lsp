@@ -25,6 +25,7 @@ export const STRUCTURAL_KEYWORDS: KeywordInfo[] = [
   { name: "computed", description: "Declare a pure derived value from state." },
   { name: "action", description: "Declare a state transition with guards." },
   { name: "type", description: "Declare a named type for use in state fields." },
+  { name: "flow", description: "Declare a reusable flow of guarded statements." },
 ];
 
 /** Guard / statement keywords (inside action body) */
@@ -36,6 +37,7 @@ export const STATEMENT_KEYWORDS: KeywordInfo[] = [
   { name: "effect", description: "Declare a side-effect requirement for Host." },
   { name: "fail", description: "Abort action with an error code." },
   { name: "stop", description: "Abort action silently with a reason." },
+  { name: "include", description: "Include a flow inside an action or flow body." },
 ];
 
 /** All MEL keywords */
@@ -44,6 +46,7 @@ export const ALL_KEYWORDS: KeywordInfo[] = [
   ...STATEMENT_KEYWORDS,
   { name: "domain", description: "Root declaration. Every MEL file defines exactly one domain." },
   { name: "available", description: "Guard on action availability. `available when condition`." },
+  { name: "dispatchable", description: "Condition that determines if an action can be dispatched." },
   { name: "with", description: "Attach a message to `fail`. `fail \"CODE\" with \"message\"`." },
   { name: "unset", description: "Remove a field value. `patch unset path`." },
   { name: "merge", description: "Merge into a field. `patch merge path = expression`." },
@@ -134,6 +137,20 @@ export function getSnippetCompletions(): CompletionItem[] {
       kind: CompletionItemKind.Snippet,
       detail: "Per-intent idempotency guard",
       insertText: "onceIntent {\n\t$0\n}",
+      insertTextFormat: InsertTextFormat.Snippet,
+    },
+    {
+      label: "flow",
+      kind: CompletionItemKind.Snippet,
+      detail: "Flow declaration",
+      insertText: "flow ${1:name}(${2:params}) {\n\t$0\n}",
+      insertTextFormat: InsertTextFormat.Snippet,
+    },
+    {
+      label: "include",
+      kind: CompletionItemKind.Snippet,
+      detail: "Include a flow",
+      insertText: "include ${1:flowName}(${2:args})",
       insertTextFormat: InsertTextFormat.Snippet,
     },
     {

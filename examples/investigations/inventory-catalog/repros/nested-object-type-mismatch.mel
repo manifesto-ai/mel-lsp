@@ -1,0 +1,13 @@
+domain InventoryCatalog {
+  type Item = {
+    sku: string,
+    stock: number
+  }
+
+  state {
+    current: Item = {
+      sku: "A-100",
+      stock: "ten"
+    }
+  }
+}

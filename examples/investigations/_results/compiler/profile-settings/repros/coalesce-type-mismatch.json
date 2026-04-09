@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "profile-settings/repros/coalesce-type-mismatch.mel",
+  "input": {
+    "byteLength": 147,
+    "lineCount": 9
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 7
+          },
+          "end": {
+            "line": 7
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "coalesce arguments must have compatible non-null types, got string and boolean",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}

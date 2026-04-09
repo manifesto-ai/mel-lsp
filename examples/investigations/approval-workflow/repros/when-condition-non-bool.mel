@@ -1,0 +1,14 @@
+domain ApprovalWorkflow {
+  state {
+    approved: boolean = false
+    attempts: number = 0
+  }
+
+  action approve() {
+    onceIntent {
+      when attempts {
+        patch approved = true
+      }
+    }
+  }
+}

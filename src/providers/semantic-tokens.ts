@@ -23,6 +23,7 @@ import {
   type ExprNode,
   type GuardedStmtNode,
   type InnerStmtNode,
+  type FlowDeclNode,
   type SourceLocation,
 } from "@manifesto-ai/compiler";
 import type { MelDocumentManager } from "../document-manager.js";
@@ -86,6 +87,7 @@ function visitProgram(program: ProgramNode, b: SemanticTokensBuilder) {
   const stateFields = new Set<string>();
   const computedNames = new Set<string>();
   const actionNames = new Set<string>();
+  const flowNames = new Set<string>();
   const paramNames = new Set<string>();
 
   for (const member of domain.members) {
@@ -100,10 +102,15 @@ function visitProgram(program: ProgramNode, b: SemanticTokensBuilder) {
       for (const param of (member as ActionNode).params ?? []) {
         paramNames.add(param.name);
       }
+    } else if (member.kind === "flow") {
+      flowNames.add((member as FlowDeclNode).name);
+      for (const param of (member as FlowDeclNode).params ?? []) {
+        paramNames.add(param.name);
+      }
     }
   }
 
-  const ctx: VisitContext = { stateFields, computedNames, actionNames, paramNames };
+  const ctx: VisitContext = { stateFields, computedNames, actionNames, flowNames, paramNames };
 
   // Type declarations
   for (const typeDecl of domain.types ?? []) {
@@ -122,6 +129,9 @@ function visitProgram(program: ProgramNode, b: SemanticTokensBuilder) {
       case "action":
         visitAction(member as ActionNode, b, ctx);
         break;
+      case "flow":
+        visitFlow(member as FlowDeclNode, b, ctx);
+        break;
     }
   }
 }
@@ -130,6 +140,7 @@ interface VisitContext {
   stateFields: Set<string>;
   computedNames: Set<string>;
   actionNames: Set<string>;
+  flowNames: Set<string>;
   paramNames: Set<string>;
 }
 
@@ -153,6 +164,22 @@ function visitAction(node: ActionNode, b: SemanticTokensBuilder, ctx: VisitConte
 
   if (node.available) {
     visitExpr(node.available, b, ctx);
+  }
+
+  if (node.dispatchable) {
+    visitExpr(node.dispatchable, b, ctx);
+  }
+
+  for (const stmt of node.body) {
+    visitStmt(stmt, b, ctx);
+  }
+}
+
+function visitFlow(node: FlowDeclNode, b: SemanticTokensBuilder, ctx: VisitContext) {
+  pushToken(b, node.location, node.name.length, 9, 1); // method + definition
+
+  for (const param of node.params ?? []) {
+    pushToken(b, param.location, param.name.length, 5, 1); // parameter + definition
   }
 
   for (const stmt of node.body) {
@@ -188,6 +215,9 @@ function visitStmt(
         }
       }
       break;
+    case "include":
+      for (const arg of stmt.args) visitExpr(arg, b, ctx);
+      break;
   }
 }
 
@@ -197,6 +227,7 @@ function visitExpr(expr: ExprNode, b: SemanticTokensBuilder, ctx: VisitContext) 
       let tokenType = 3; // variable (default: state)
       if (ctx.computedNames.has(expr.name)) tokenType = 4; // property
       else if (ctx.actionNames.has(expr.name)) tokenType = 9; // method
+      else if (ctx.flowNames.has(expr.name)) tokenType = 9; // method (flow)
       else if (ctx.paramNames.has(expr.name)) tokenType = 5; // parameter
       pushToken(b, expr.location, expr.name.length, tokenType, 0);
       break;

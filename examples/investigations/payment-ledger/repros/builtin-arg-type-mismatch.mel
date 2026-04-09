@@ -1,0 +1,7 @@
+domain PaymentLedger {
+  state {
+    balance: number = 0
+  }
+
+  computed nextBalance = add("10", balance)
+}

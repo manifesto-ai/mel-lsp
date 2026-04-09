@@ -1,0 +1,176 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "root": "/home/eggp/dev/workspaces/manifesto/mel-lsp/examples/investigations",
+  "fileCount": 24,
+  "files": [
+    {
+      "file": "approval-workflow/baseline.mel",
+      "output": "_results/compiler/approval-workflow/baseline.json",
+      "hasSchema": true,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "file": "approval-workflow/repros/action-param-type-mismatch.mel",
+      "output": "_results/compiler/approval-workflow/repros/action-param-type-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "approval-workflow/repros/cross-type-comparison.mel",
+      "output": "_results/compiler/approval-workflow/repros/cross-type-comparison.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "approval-workflow/repros/when-condition-non-bool.mel",
+      "output": "_results/compiler/approval-workflow/repros/when-condition-non-bool.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "bookmark-manager/baseline.mel",
+      "output": "_results/compiler/bookmark-manager/baseline.json",
+      "hasSchema": true,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "file": "bookmark-manager/repros/guard-non-bool.mel",
+      "output": "_results/compiler/bookmark-manager/repros/guard-non-bool.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "bookmark-manager/repros/patch-type-mismatch.mel",
+      "output": "_results/compiler/bookmark-manager/repros/patch-type-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "bookmark-manager/repros/state-init-type-mismatch.mel",
+      "output": "_results/compiler/bookmark-manager/repros/state-init-type-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "inventory-catalog/baseline.mel",
+      "output": "_results/compiler/inventory-catalog/baseline.json",
+      "hasSchema": true,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "file": "inventory-catalog/repros/collection-mapper-type.mel",
+      "output": "_results/compiler/inventory-catalog/repros/collection-mapper-type.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "inventory-catalog/repros/collection-predicate-type.mel",
+      "output": "_results/compiler/inventory-catalog/repros/collection-predicate-type.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "inventory-catalog/repros/nested-object-type-mismatch.mel",
+      "output": "_results/compiler/inventory-catalog/repros/nested-object-type-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "payment-ledger/baseline.mel",
+      "output": "_results/compiler/payment-ledger/baseline.json",
+      "hasSchema": true,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "file": "payment-ledger/repros/builtin-arg-type-mismatch.mel",
+      "output": "_results/compiler/payment-ledger/repros/builtin-arg-type-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "payment-ledger/repros/cross-type-comparison.mel",
+      "output": "_results/compiler/payment-ledger/repros/cross-type-comparison.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "payment-ledger/repros/guard-non-bool.mel",
+      "output": "_results/compiler/payment-ledger/repros/guard-non-bool.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "profile-settings/baseline.mel",
+      "output": "_results/compiler/profile-settings/baseline.json",
+      "hasSchema": true,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "file": "profile-settings/repros/coalesce-type-mismatch.mel",
+      "output": "_results/compiler/profile-settings/repros/coalesce-type-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "profile-settings/repros/nullable-state-type.mel",
+      "output": "_results/compiler/profile-settings/repros/nullable-state-type.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "profile-settings/repros/undefined-identifier.mel",
+      "output": "_results/compiler/profile-settings/repros/undefined-identifier.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "todo-workspace/baseline.mel",
+      "output": "_results/compiler/todo-workspace/baseline.json",
+      "hasSchema": true,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "file": "todo-workspace/repros/collection-mapper-type.mel",
+      "output": "_results/compiler/todo-workspace/repros/collection-mapper-type.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "todo-workspace/repros/collection-predicate-type.mel",
+      "output": "_results/compiler/todo-workspace/repros/collection-predicate-type.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    },
+    {
+      "file": "todo-workspace/repros/named-type-field-mismatch.mel",
+      "output": "_results/compiler/todo-workspace/repros/named-type-field-mismatch.json",
+      "hasSchema": false,
+      "errorCount": 1,
+      "warningCount": 0
+    }
+  ]
+}

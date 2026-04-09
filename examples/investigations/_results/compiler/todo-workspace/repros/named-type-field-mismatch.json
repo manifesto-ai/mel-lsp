@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "todo-workspace/repros/named-type-field-mismatch.mel",
+  "input": {
+    "byteLength": 153,
+    "lineCount": 14
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 8
+          },
+          "end": {
+            "line": 11
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "Type mismatch: field 'current.id' expects string, got number",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}

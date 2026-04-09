@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "profile-settings/repros/nullable-state-type.mel",
+  "input": {
+    "byteLength": 67,
+    "lineCount": 6
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 3
+          },
+          "end": {
+            "line": 3
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "Type mismatch: field 'locale' is not nullable, but initializer is null",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}

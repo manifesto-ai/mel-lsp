@@ -1,0 +1,29 @@
+{
+  "tool": "compiler",
+  "generatedAt": "2026-03-25T19:55:51.720Z",
+  "file": "payment-ledger/repros/cross-type-comparison.mel",
+  "input": {
+    "byteLength": 101,
+    "lineCount": 8
+  },
+  "result": {
+    "hasSchema": false,
+    "errors": [
+      {
+        "location": {
+          "start": {
+            "line": 6
+          },
+          "end": {
+            "line": 6
+          }
+        },
+        "severity": "error",
+        "code": "E_TYPE_MISMATCH",
+        "message": "eq/neq operands must be compatible primitive types, got number and \"0\"",
+        "suggestion": null
+      }
+    ],
+    "warnings": []
+  }
+}
